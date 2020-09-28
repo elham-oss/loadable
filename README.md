@@ -7,7 +7,8 @@ This project was generated using [Nx](https://nx.dev).
 
 for demo please refer to the source code => `apps/documentation`,
 also the demo app has been deployed to netlify [demo app](https://light-localize-router.netlify.app/)
-
+for api documentations [click here](https://light-localize-router-api-docs.netlify.app/)
+ 
 # Table of contents:
 - [Installation](#installation)
 - [Usage](#usage)
