@@ -49,8 +49,7 @@
     "commit-git": "git commit -m \"build: adds new release\" && git push origin && git push origin --tags",
     "pre-publish:minor": "run-s bump-version:minor build:lib-pack commit-git",
     "pre-publish:major": "run-s bump-version:major build:lib-pack commit-git",
-    "pre-publish:patch": "run-s bump-version:patch build:lib-pack commit-git",
-
+    "pre-publish:patch": "run-s bump-version:patch build:lib-pack commit-git"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +61,7 @@
     "@angular/platform-browser": "^10.0.0",
     "@angular/platform-browser-dynamic": "^10.0.0",
     "@angular/router": "^10.0.0",
+    "@ngx-translate/core": "^13.0.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
