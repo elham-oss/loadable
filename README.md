@@ -5,6 +5,8 @@ This project was generated using [Nx](https://nx.dev).
 
 🔎 **Created By [Nrwl/Nx](https://nx.dev/) inspired by [angular-l10n](https://github.com/robisim74/angular-l10n/) & [Greentube/localize-router](https://github.com/Greentube/localize-router) & [gilsdav/ngx-translate-router](https://github.com/gilsdav/ngx-translate-router/).**
 
+for demo please refer to the source code => `apps/documentation`,
+also the demo app has been deployed to netlify [demo app](https://light-localize-router.netlify.app/)
 
 # Table of contents:
 - [Installation](#installation)
