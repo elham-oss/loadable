@@ -1,16 +1,57 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Injectable, Injector, NgModule, PLATFORM_ID } from '@angular/core';
+import { Location } from '@angular/common';
+
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
+import { FirstPageComponent } from './first-page/first-page.component';
+import { SecondPageComponent } from './second-page/second-page.component';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AbstractParser, HttpLoader, LightLocalizeRouterModule } from '@elham-oss/light-localize-router';
+
+@Injectable({providedIn: 'root'})
+export class HttpClientTrans extends HttpClient {
+  constructor(handler: HttpBackend) {
+    super(handler);
+  }
+}
+export function HttpLoaderFactory(http: HttpClientTrans) {
+  return new TranslateHttpLoader(http, '/assets/i18n/', '-lang.json');
+}
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FirstPageComponent, SecondPageComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path: '', redirectTo: 'first-page', pathMatch: 'full' },
+      { path: 'first-page', component: FirstPageComponent },
+      { path: 'second-page', component: SecondPageComponent }
+    ]),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClientTrans]
+      }
+    }),
+    LightLocalizeRouterModule.forRoot({
+      parser: {
+        provide: AbstractParser,
+        useFactory: (translate, location, injector, platformId, http) => {
+          return new HttpLoader(translate, location, http, injector, platformId)
+        },
+        deps: [TranslateService, Location, Injector, PLATFORM_ID, HttpClient]
+      }
+    })
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

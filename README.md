@@ -1,90 +1,91 @@
-# LightLocalizeRouter
-
+# Light Localize Router for ngx-translate
+> An implementation of routes localization for Angular without rewriting the router configuration.
+>
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+🔎 **Created By [Nrwl/Nx](https://nx.dev/) inspired by [angular-l10n](https://github.com/robisim74/angular-l10n/) & [Greentube/localize-router](https://github.com/Greentube/localize-router) & [gilsdav/ngx-translate-router](https://github.com/gilsdav/ngx-translate-router/).**
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
 
-## Adding capabilities to your workspace
+# Table of contents:
+- [Installation](#installation)
+- [Usage](#usage)
+    - [Initialize module](#initialize-module)
+    - [How it works](#how-it-works)
+- [License](#license)
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+## Installation
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+using npm:
+```
+npm install --save @elham-oss/light-localize-router
+```
+using yarn:
+```
+yarn add --save @elham-oss/light-localize-router
+```
 
-Below are our core plugins:
+## Usage
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+In order to use `@elham-oss/light-localize-router` you must initialize it with following information:
+* Localization Config along with loader.
 
-There are also many [community plugins](https://nx.dev/nx-community) you could add.
 
-## Generate an application
+### Initialize module
+`import { LightLocalizeRouterModule } from '@elham-oss/light-localize-router';`
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+* you need to add configure ngx-translate/core as described here [ngx-translate/core](https://github.com/ngx-translate/core)*
 
-> You can use any of the plugins above to generate applications as well.
+```ts
+import { Location } from '@angular/common';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AbstractParser, HttpLoader, LightLocalizeRouterModule } from '@elham-oss/light-localize-router';
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+imports: [
+    TranslateModule.forRoot({
+        defaultLanguage: 'en',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClientTrans]
+        }
+    }),
+    RouterModule.forRoot(routes),
+    LightLocalizeRouterModule.forRoot({
+        parser: {
+          provide: AbstractParser,
+          useFactory: (translate, location, injector, platformId, http) => {
+            return new HttpLoader(translate, location, http, injector, platformId)
+          },
+          deps: [TranslateService, Location, Injector, PLATFORM_ID, HttpClient]
+        }
+    })
+]
+```
 
-## Generate a library
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+### How it works
 
-> You can also use any of the plugins above to generate libraries as well.
+after you add `@elham-oss/light-localize-router` to your project it will work like [angular-l10n](https://github.com/robisim74/angular-l10n/) routing but for [ngx-translate/core](https://github.com/ngx-translate/core):
 
-Libraries are sharable across libraries and applications. They can be imported from `@light-localize-router/mylib`.
+A prefix containing the language is added to the path of each navigation, creating a semantic URL:
+```
+baseHref/[language][-script][-region]/path
 
-## Development server
+https://example.com/en/home
+https://example.com/en-US/home
+```
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+If the localized link is called, the _locale_ is also set automatically.
 
-## Code scaffolding
+To achieve this, the router configuration in your app is not rewritten: the URL is replaced, in order to provide the different localized contents both to the crawlers and to the users that can refer to the localized links.
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+If you don't want a localized routing for _default locale_, you can enable it during the configuration:
+```json
+{
+    "defaultRouting": true
+}
+```
 
-## Build
-
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-## ☁ Nx Cloud
-
-### Computation Memoization in the Cloud
-
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+you can also create your own loader instead of http loader and provide the configuration for the library.

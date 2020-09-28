@@ -29,7 +29,6 @@ export class HttpLoader extends AbstractParser {
                     this.format = data.format ?? 'language-region';
                     this.prefix = data.prefix || '';
                     this.escapePrefix = data.escapePrefix || '';
-                    console.log(this.locales);
                     this.init().then(resolve);
                 });
         });

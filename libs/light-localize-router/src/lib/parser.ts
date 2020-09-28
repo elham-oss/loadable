@@ -79,7 +79,6 @@ export abstract class AbstractParser {
     private redirectToPath(path: string, skipLocationChange: boolean): void {
 
         const segment = getLocalizedSegment(path, this.locales, this.format);
-        console.log('79', segment);
         if (segment != null) {
             const url = path.replace(segment, '/');
             this.translate.use(segment.replace('/', '').replace('/', ''));
@@ -118,7 +117,6 @@ export abstract class AbstractParser {
     }
 
     private isDefaultRouting(): boolean {
-        console.log('defaultRouting', this.defaultRouting);
         if (!this.defaultRouting) return false;
 
         return formatLanguage(this.translate.currentLang ?? this.translate.defaultLang, this.format) ===

@@ -1,0 +1,5 @@
+{
+  "locales": ["ar", "en"],
+  "format": "language",
+  "defaultRouting": true
+}
