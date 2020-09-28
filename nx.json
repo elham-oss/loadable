@@ -28,6 +28,9 @@
     "documentation-e2e": {
       "tags": [],
       "implicitDependencies": ["documentation"]
+    },
+    "light-localize-router": {
+      "tags": []
     }
   }
 }

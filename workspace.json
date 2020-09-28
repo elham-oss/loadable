@@ -121,6 +121,51 @@
           }
         }
       }
+    },
+    "light-localize-router": {
+      "projectType": "library",
+      "root": "libs/light-localize-router",
+      "sourceRoot": "libs/light-localize-router/src",
+      "prefix": "light-localize-router",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/light-localize-router/tsconfig.lib.json",
+            "project": "libs/light-localize-router/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/light-localize-router/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/light-localize-router/tsconfig.lib.json",
+              "libs/light-localize-router/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/light-localize-router/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/light-localize-router/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
