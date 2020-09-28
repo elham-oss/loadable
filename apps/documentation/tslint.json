@@ -1,0 +1,20 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "lightLocalizeRouter",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "light-localize-router",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}
