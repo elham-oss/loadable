@@ -1,6 +1,6 @@
 {
   "name": "light-localize-router",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -45,7 +45,7 @@
     "bump-version:major": "npm version major --force && cd libs/light-localize-router && npm version major --force",
     "bump-version:minor": "npm version minor --force && cd libs/light-localize-router && npm version minor --force",
     "bump-version:patch": "npm version patch --force && cd libs/light-localize-router && npm version patch --force",
-    "build:lib-pack": "ng build light-localize-router && npm run copy-files &&  cd dist/libs/light-localize-router && npm pack",
+    "build:lib-pack": "nx build light-localize-router && npm run copy-files &&  cd dist/libs/light-localize-router && npm pack",
     "commit-git": "git commit -m \"build: adds new release\" && git push origin && git push origin --tags",
     "pre-publish:minor": "run-s bump-version:minor build:lib-pack commit-git",
     "pre-publish:major": "run-s bump-version:major build:lib-pack commit-git",
