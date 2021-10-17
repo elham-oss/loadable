@@ -18,7 +18,8 @@
     "paths": {
       "@elham-oss/light-localize-router": [
         "libs/light-localize-router/src/index.ts"
-      ]
+      ],
+      "@elham-oss/loadable": ["libs/loadable/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

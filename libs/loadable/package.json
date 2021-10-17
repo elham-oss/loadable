@@ -1,0 +1,18 @@
+{
+  "name": "@elham-oss/loadable",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elham-oss/loadable.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elham-oss/loadable/issues"
+  },
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

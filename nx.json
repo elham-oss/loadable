@@ -31,6 +31,9 @@
     },
     "light-localize-router": {
       "tags": []
+    },
+    "loadable": {
+      "tags": []
     }
   },
   "targetDependencies": {

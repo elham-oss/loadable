@@ -1,4 +1,10 @@
 <p translate>first-page.WELCOME</p>
+<ngx-loadable module="loadable-a"
+              (init)='syncWithTenantConfig($event)'
+              [show]="true"></ngx-loadable>
+<ngx-loadable module="loadable-b"
+              (init)='syncWithTenantConfig($event)'
+              [show]="true"></ngx-loadable>
 <a routerLink="/second-page">to second page using default language link</a> <br/>
 <a routerLink="/en/second-page">to second page using en language link</a> <br/>
 <a routerLink="/ar/second-page">إلى الصفحة الثانية باللغة العربية</a> <br/>

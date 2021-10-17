@@ -12,4 +12,6 @@ export class FirstPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  syncWithTenantConfig($event: any) {
+  }
 }

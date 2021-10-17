@@ -11,13 +11,15 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { HttpBackend, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AbstractParser, HttpLoader, LightLocalizeRouterModule } from '@elham-oss/light-localize-router';
+import { LoadableModule, matcher } from '@elham-oss/loadable';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class HttpClientTrans extends HttpClient {
   constructor(handler: HttpBackend) {
     super(handler);
   }
 }
+
 export function HttpLoaderFactory(http: HttpClientTrans) {
   return new TranslateHttpLoader(http, '/assets/i18n/', '-lang.json');
 }
@@ -27,11 +29,25 @@ export function HttpLoaderFactory(http: HttpClientTrans) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    LoadableModule.forRoot({
+      moduleConfigs: [
+        {
+          name: 'loadable-a',
+          loadChildren: () => import('./loadable-a/loadable-a.module').then(mod => mod.LoadableAModule),
+          matcher
+        },
+        {
+          name: 'loadable-b',
+          loadChildren: () => import('./loadable-b/loadable-b.module').then(mod => mod.LoadableBModule),
+          matcher
+        }
+      ]
+    }),
     RouterModule.forRoot([
-    { path: '', redirectTo: 'first-page', pathMatch: 'full' },
-    { path: 'first-page', component: FirstPageComponent },
-    { path: 'second-page', component: SecondPageComponent }
-], { relativeLinkResolution: 'legacy' }),
+      { path: '', redirectTo: 'first-page', pathMatch: 'full' },
+      { path: 'first-page', component: FirstPageComponent },
+      { path: 'second-page', component: SecondPageComponent }
+    ], { relativeLinkResolution: 'legacy' }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
@@ -44,11 +60,12 @@ export function HttpLoaderFactory(http: HttpClientTrans) {
       parser: {
         provide: AbstractParser,
         useFactory: (translate, location, injector, platformId, http) => {
-          return new HttpLoader(translate, location, http, injector, platformId)
+          return new HttpLoader(translate, location, http, injector, platformId);
         },
         deps: [TranslateService, Location, Injector, PLATFORM_ID, HttpClient]
       }
-    })
+    }),
+    LoadableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

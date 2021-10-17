@@ -26,9 +26,7 @@
               "apps/documentation/src/favicon.ico",
               "apps/documentation/src/assets"
             ],
-            "styles": [
-              "apps/documentation/src/styles.scss"
-            ],
+            "styles": ["apps/documentation/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -60,9 +58,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -88,10 +84,7 @@
               "apps/documentation/tsconfig.app.json",
               "apps/documentation/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/documentation/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/documentation/**/*"]
           }
         },
         "test": {
@@ -100,9 +93,7 @@
             "jestConfig": "apps/documentation/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/documentation"
-          ]
+          "outputs": ["coverage/apps/documentation"]
         }
       }
     },
@@ -127,13 +118,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/documentation-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/documentation-e2e/**/*"
-            ]
+            "tsConfig": ["apps/documentation-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/documentation-e2e/**/*"]
           }
         }
       }
@@ -176,14 +162,53 @@
             "jestConfig": "libs/light-localize-router/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/light-localize-router"
-          ]
+          "outputs": ["coverage/libs/light-localize-router"]
         }
       },
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        }
+      }
+    },
+    "loadable": {
+      "projectType": "library",
+      "root": "libs/loadable",
+      "sourceRoot": "libs/loadable/src",
+      "prefix": "light-localize-router",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "outputs": ["dist/libs/loadable"],
+          "options": {
+            "project": "libs/loadable/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/loadable/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/loadable/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/loadable"],
+          "options": {
+            "jestConfig": "libs/loadable/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/loadable/src/**/*.ts",
+              "libs/loadable/src/**/*.html"
+            ]
+          }
         }
       }
     }
@@ -193,12 +218,15 @@
   },
   "schematics": {
     "@nrwl/angular:application": {
+      "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "none"
     },
     "@nrwl/angular:library": {
+      "linter": "eslint",
       "unitTestRunner": "jest"
-    }
+    },
+    "@nrwl/angular:component": {}
   },
   "defaultProject": "documentation"
 }
