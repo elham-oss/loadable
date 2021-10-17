@@ -1,6 +1,6 @@
 {
   "name": "@elham-oss/light-localize-router",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/elham-oss/light-localize-router.git"
@@ -9,9 +9,9 @@
     "url": "https://github.com/elham-oss/light-localize-router/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^10.0.14",
-    "@angular/core": "^10.0.14",
-    "@angular/router": "^10.0.0",
+    "@angular/common": "^12.2.10",
+    "@angular/core": "^12.2.10",
+    "@angular/router": "^12.2.10",
     "@ngx-translate/core": "^13.0.0"
   },
   "dependencies": {
