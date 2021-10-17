@@ -28,7 +28,7 @@ export abstract class AbstractParser {
 
     protected constructor(@Inject(TranslateService) private translate: TranslateService, @Inject(Injector) private injector: Injector,
                           @Inject(Location) private location: Location,
-                          @Inject(PLATFORM_ID) private platformId: Record<string, any>) {
+                          @Inject(PLATFORM_ID) private platformId: Object) {
     }
     /**
      * Load routes and fetch necessary data

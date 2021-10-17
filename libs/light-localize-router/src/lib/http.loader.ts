@@ -13,7 +13,7 @@ export class HttpLoader extends AbstractParser {
     constructor(translate: TranslateService,
                 location: Location, private http: HttpClient,
                 injector: Injector,
-                @Inject(PLATFORM_ID) platformId: Record<string, any>,
+                @Inject(PLATFORM_ID) platformId: Object,
                 private path: string = 'assets/locales.json') {
         super(translate, injector, location, platformId);
     }
