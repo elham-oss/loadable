@@ -26,7 +26,9 @@
               "apps/documentation/src/favicon.ico",
               "apps/documentation/src/assets"
             ],
-            "styles": ["apps/documentation/src/styles.scss"],
+            "styles": [
+              "apps/documentation/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -40,7 +42,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -58,7 +59,10 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -84,7 +88,10 @@
               "apps/documentation/tsconfig.app.json",
               "apps/documentation/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/documentation/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/documentation/**/*"
+            ]
           }
         },
         "test": {
@@ -92,7 +99,10 @@
           "options": {
             "jestConfig": "apps/documentation/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/apps/documentation"
+          ]
         }
       }
     },
@@ -117,8 +127,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/documentation-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/documentation-e2e/**/*"]
+            "tsConfig": [
+              "apps/documentation-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/documentation-e2e/**/*"
+            ]
           }
         }
       }
@@ -133,7 +148,8 @@
           "builder": "@nrwl/angular:package",
           "options": {
             "tsConfig": "libs/light-localize-router/tsconfig.lib.json",
-            "project": "libs/light-localize-router/ng-package.json"
+            "project": "libs/light-localize-router/ng-package.json",
+            "buildableProjectDepsInPackageJsonType": "dependencies"
           },
           "configurations": {
             "production": {
@@ -159,7 +175,10 @@
           "options": {
             "jestConfig": "libs/light-localize-router/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": [
+            "coverage/libs/light-localize-router"
+          ]
         }
       },
       "schematics": {
@@ -175,7 +194,7 @@
   "schematics": {
     "@nrwl/angular:application": {
       "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
+      "e2eTestRunner": "none"
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"

@@ -28,10 +28,10 @@ export function HttpLoaderFactory(http: HttpClientTrans) {
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', redirectTo: 'first-page', pathMatch: 'full' },
-      { path: 'first-page', component: FirstPageComponent },
-      { path: 'second-page', component: SecondPageComponent }
-    ]),
+    { path: '', redirectTo: 'first-page', pathMatch: 'full' },
+    { path: 'first-page', component: FirstPageComponent },
+    { path: 'second-page', component: SecondPageComponent }
+], { relativeLinkResolution: 'legacy' }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
       loader: {
